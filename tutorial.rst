@@ -2,6 +2,12 @@
 Tutorial
 ========
 
+이 튜토리얼은 **Tumblelog**블로그 어플리케이션을 만들며 **Mongoengine**을 설명합니다.
+Tumblelog은 텍스트, 이미지, 링크, 영상, 오디오 등등의 미디어 컨텐츠를 지원하는 블로그 어플리케이션 입니다.
+튜토리얼을 간단하게 하기 위해 우리의 Tumblelog은 텍스트, 이미지, 링크만 지원합니다.
+그리고 이 튜토리얼의 목적은 MongoEngine을 설명하는 것이기 때문에 유저인터페이스 보다는
+데이터 모델링에 중점을 두고 설명할 것입니다.
+
 This tutorial introduces **MongoEngine** by means of example --- we will walk
 through how to create a simple **Tumblelog** application. A tumblelog is a
 blog that supports mixed media content, including text, images, links, video,
