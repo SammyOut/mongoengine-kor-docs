@@ -19,6 +19,23 @@ interface.
 Getting started
 ===============
 
+시작하기 전에 MongoDB가 접근 가능한 위치에서 실행되고 있어야 합니다. --- 만약 로컬에서 실행되고 있다면 훨씬 수월할 것입니다.
+그렇지 않다면 리모트서버에서 실행이 되고 있어야 합니다.
+만약 당신의 컴퓨터에 MongoEngien이 설치가 되어있지 않다면 pip를 이용하여 다음과 같이 쉽게 설치할 수 있습니다. ::
+
+    $ pip install mongoengine
+
+MongoEngine을 사용하기 전에  :func:`~mongoengine.connect` 함수를 사용하여
+:program:`mongod`의 인스턴스를 연결하는 법을 알려드리겠습니다.
+만약에 로컬에서 실행되고 있다면 함수의 매개변수로 MongoDB의 이름만 들어가면 됩니다.::
+
+    from mongoengine import *
+
+    connect('tumblelog')
+
+MongoDB를 연결할 때 수많은 옵션들을 사용할 수 있습니다.
+더 자세한 정보는 :ref:`guide-connecting`가이드를 확인하세요.
+
 Before we start, make sure that a copy of MongoDB is running in an accessible
 location --- running it locally will be easier, but if that is not an option
 then it may be run on a remote server. If you haven't installed MongoEngine,
