@@ -207,6 +207,25 @@ when they are saved, and dereferenced when they are loaded.
 Tags
 ^^^^
 
+이제 Post 모델을 이해했으니 여기에 tags를 어떻게 붙일 수 있을까요?
+MongoDB는 자체적으로 아이템들의 리스트를 저장할 수 있습니다. 각각 포스트의 태그들의
+리스트를 Post 모델에 저장할 수 있습니다. 효율성과 간편성을 위해서 태그들을 collection에 reference로
+분할하여 저장하지 않고 post에 string으로 저장하겠습니다. 특별히 tags는 매우 짧기 때문에(주로
+도큐먼트의 id보다도 짧습니다.) 제한을 하지 않아도데이터베이스의 크기에 크게 영향을 주지 않습니다.
+수정된 :class:`Post` 클래스를 확인해봅시다.::
+
+    class Post(Document):
+        title = StringField(max_length=120, required=True)
+        author = ReferenceField(User)
+        tags = ListField(StringField(max_length=30))
+
+Post의 tags를 저장하기 위해 사용한 :class:`~mongoengine.fields.ListField` 객체는 첫번째
+인자로 필드 객체를 받습니다. --- 이것은 어떤 종류의 필드의 리스트도 저장할 수 있다는 것입니다.
+(리스트를 포함해서 말입니다.)
+
+.. note::
+    :class:`Post`를 상속 받았기 때문에 각각의 post 종류마다 다 수정해줄 필요가 없습니다.
+
 Now that we have our Post models figured out, how will we attach tags to them?
 MongoDB allows us to store lists of items natively, so rather than having a
 link table, we can just store a list of tags in each post. So, for both
