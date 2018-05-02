@@ -58,7 +58,7 @@ them see the :ref:`guide-connecting` guide.
 Defining our documents
 ======================
 
-MongoDB는 스키마를 정의할 필요가 없는 **스키마리스** 데이터베이스 입니다. ---
+MongoDB는 스키마를 정의할 필요가 없는 *스키마리스* 데이터베이스 입니다. ---
 필드를 추가 하거나 지워도 에러가 발생하지 않습니다. 이는 데이터 모델 변경 등등 많은 것들을 편하게 해주지만
 도큐먼트의 스키마를 정의하는 것은 잘못된 타입 또는 빠진 필드 등의 버그를 잡는 데에 도움을 줍니다.
 그리고 :abbr:`ORMs (Object-Relational Mappers)`처럼 유틸리티 메소드를 정의할 수 있습니다.
@@ -68,7 +68,7 @@ Tumblelog 어플리케이션에서는 다양한 타입의 정보들을 저장해
 또한 다양한 종류의 **posts**(예: 텍스트, 이미지, 링크)를 데이터베이스에 저장해야 합니다.
 Tumblelog에서 post마다 **Tags**를 달면 특정 tag를 검색했을 때 글을 찾기 쉽게 해줍니다.
 마지막으로 **comments**를 추가하면 멋진 Tumblelog가 만들어집니다.
-다른 많은 도큐먼트들과 연결되어 있는 **users** 도큐먼트보다 정의해봅시다.
+다른 많은 도큐먼트들과 연결되어 있는 **users**를 먼저 정의해봅시다.
 
 MongoDB is *schemaless*, which means that no schema is enforced by the database
 --- we may add and remove fields however we want and MongoDB won't complain.
@@ -90,6 +90,19 @@ more involved.
 
 Users
 -----
+
+관계형 데이터베이스에서 ORM을 쓰는 것 처럼 :class:`User` 가 어떠한 필드를 가지고 있는지,
+어떠한 타입의 데이터가 들어갈 것인지를 정의해야 합니다.::
+
+    class User(Document):
+        email = StringField(required=True)
+        first_name = StringField(max_length=50)
+        last_name = StringField(max_length=50)
+
+위 코드는 일반적인 ORM에서 table의 구조를 정의하는 것과 비슷해 보입니다.
+하지만 가장 중요한 차이점은 스키마가 MongoDB에 전달되거나 정의되지 않는 다는 것입니다. ---
+이 것은 추후 수정 사항을 쉽게 관리하기 위해 어플리케이션 레벨에서 적용이 됩니다.
+User 도큐먼트는 MongoDB의 table이 아닌 *collection*에 저장이 될 것입니다.
 
 Just as if we were using a relational database with an ORM, we need to define
 which fields a :class:`User` may have, and what types of data they might store::
