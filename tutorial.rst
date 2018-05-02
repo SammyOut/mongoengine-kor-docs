@@ -58,6 +58,18 @@ them see the :ref:`guide-connecting` guide.
 Defining our documents
 ======================
 
+MongoDB는 스키마를 정의할 필요가 없는 **스키마리스** 데이터베이스 입니다. ---
+필드를 추가 하거나 지워도 에러가 발생하지 않습니다. 이는 데이터 모델 변경 등등 많은 것들을 편하게 해주지만
+도큐먼트의 스키마를 정의하는 것은 잘못된 타입 또는 빠진 필드 등의 버그를 잡는 데에 도움을 줍니다.
+그리고 :abbr:`ORMs (Object-Relational Mappers)`처럼 유틸리티 메소드를 정의할 수 있습니다.
+
+Tumblelog 어플리케이션에서는 다양한 타입의 정보들을 저장해야 합니다.
+먼저 post들을 각각의 유저마다 연결하기 위해 **users** 컬렉션이 필요합니다.
+또한 다양한 종류의 **posts**(예: 텍스트, 이미지, 링크)를 데이터베이스에 저장해야 합니다.
+Tumblelog에서 post마다 **Tags**를 달면 특정 tag를 검색했을 때 글을 찾기 쉽게 해줍니다.
+마지막으로 **comments**를 추가하면 멋진 Tumblelog가 만들어집니다.
+다른 많은 도큐먼트들과 연결되어 있는 **users** 도큐먼트보다 정의해봅시다.
+
 MongoDB is *schemaless*, which means that no schema is enforced by the database
 --- we may add and remove fields however we want and MongoDB won't complain.
 This makes life a lot easier in many regards, especially when there is a change
