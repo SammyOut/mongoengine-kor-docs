@@ -142,6 +142,36 @@ of them stand out as particularly intuitive solutions.
 Posts
 ^^^^^
 
+행복하게도 MongoDB는 관계형 데이터베이스가 *아니기* 때문에 위에 말했던 방법을 사용하지 않습니다.
+MongoDB의 schemaless 환경이 더 멋진 해결책을 제공해주기 때문입니다.
+우리는 모든 종류의 posts를 *한 collection*에 저장하고 각각의 종류의 posts를 위한 필드를 정의합니다.
+만약에 나중에 비디오 posts를 추가하고싶더라도 collection의 전체 내용을 수정할 필요가 없습니다.
+단지 비디오 posts를 지원할 새로운 필드를 만들기만 하면 됩니다.
+이것은 객체지향의 상속의 원칙에 멋지게 알맞습니다. 우리는 :class:`Post`를 부모 클래스.
+:class:`TextPost`, :class:`ImagePost` 그리고 :class:`LinkPost`를 :class:`Post`의
+자식 클래스로 생각하면 됩니다. 사실 MongoEngine은 이 것을 창조적은 모델링의 한 종류로 지원합니다. ---
+상속이 가능하게 설정하기 위해서는 :attr:`meta` 안에 있는 :attr:`allow_inheritance`를 True로
+설정하기만 하면 됩니다.::
+
+    class Post(Document):
+        title = StringField(max_length=120, required=True)
+        author = ReferenceField(User)
+
+        meta = {'allow_inheritance': True}
+
+    class TextPost(Post):
+        content = StringField()
+
+    class ImagePost(Post):
+        image_path = StringField()
+
+    class LinkPost(Post):
+        link_url = StringField()
+
+:class:`~mongoengine.fields.ReferenceField`를 이용하여 게시글의 작성자의 Reference를 저장했습니다.
+이는 전통적인 ORM의 foreign key 필드와 비슷합니다. 그리고 데이터를 저장할 때 자동으로 참조가 되고
+데이터를 불러올 때 역참조가 됩니다.
+
 Happily MongoDB *isn't* a relational database, so we're not going to do it that
 way. As it turns out, we can use MongoDB's schemaless nature to provide us with
 a much nicer solution. We will store all of the posts in *one collection* and
