@@ -121,6 +121,14 @@ MongoDB *collection* rather than a table.
 Posts, Comments and Tags
 ------------------------
 
+이제 남은 정보들을 어떻게 저장할 것인지 생각해봅시다. 만약 관계형 데이터베이스를 사용했다면
+아마 **posts** table과 **comments** table 그리고 **tags** table을 만들었을 것입니다.
+그리고 comments와 각각의 posts를 연결하기 위해 comments table의 속성에 posts table의
+foreign key를 넣었을 것입니다. 그리고 post table과 tag table을 연결하기 위해 many-to-many
+relationship을 제공했을 것입니다. 그 다음에 각각의 데이터 타입들(텍스트, 이미지, 링크)을 저장하는
+문제를 해결해야 합니다. 이 문제를 해결하는 데에는 다양한 방법이 있지만 각각의 방법마다 단점이 있어서
+완벽한 해결책은 없습니다.
+
 Now we'll think about how to store the rest of the information. If we were
 using a relational database, we would most likely have a table of **posts**, a
 table of **comments** and a table of **tags**.  To associate the comments with
