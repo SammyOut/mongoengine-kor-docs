@@ -298,6 +298,7 @@ We can then store a list of comment documents in our post document::
 
 Handling deletions of references
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 :class:`~mongoengine.fields.ReferenceField` 객체는 참조되는 객체가 지워질 때의
 삭제 규칙을 제어하기 위해 `reverse_delete_rule` 키워드를 가집니다. user가 지워질 때
 모든 posts를 삭제하기 위해서 규칙을 설정해야 합니다.::
@@ -332,6 +333,38 @@ See :class:`~mongoengine.fields.ReferenceField` for more information.
 
 Adding data to our Tumblelog
 ============================
+
+지금까지 document가 어떤 구조로 저장될 것인지 정의했습니다. 그러면 데이터베이스에
+몇 개의 documents를 추가해 봅시다! 먼저 :class:`User` 객체를 만들어 봅시다.::
+
+    ross = User(email='ross@example.com', first_name='Ross', last_name='Lawley').save()
+
+.. note::
+    user를 속성을 통해서 정의할 수도 있습니다.::
+
+        ross = User(email='ross@example.com')
+        ross.first_name = 'Ross'
+        ross.last_name = 'Lawley'
+        ross.save()
+
+위에서 ``ross`` user를 만든 것처럼 ``john``이라는 user도 만들어 봅시다.
+
+users를 데이터베이스에 넣었으니 두 개의 post를 추가해봅시다.::
+
+    post1 = TextPost(title='Fun with MongoEngine', author=john)
+    post1.content = 'Took a look at MongoEngine today, looks pretty cool.'
+    post1.tags = ['mongodb', 'mongoengine']
+    post1.save()
+
+    post2 = LinkPost(title='MongoEngine Documentation', author=ross)
+    post2.link_url = 'http://docs.mongoengine.com/'
+    post2.tags = ['mongoengine']
+    post2.save()
+
+.. note::
+    이미 :meth:`save` 메소드를 사용하여 저장된 객체에서 필드를 수정했더라도
+    :meth:`save` 메소드를 다시 호출하면 새로운 내용으로 업데이트 됩니다.
+
 Now that we've defined how our documents will be structured, let's start adding
 some documents to the database. Firstly, we'll need to create a :class:`User`
 object::
