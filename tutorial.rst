@@ -298,6 +298,20 @@ We can then store a list of comment documents in our post document::
 
 Handling deletions of references
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+:class:`~mongoengine.fields.ReferenceField` 객체는 참조되는 객체가 지워질 때의
+삭제 규칙을 제어하기 위해 `reverse_delete_rule` 키워드를 가집니다. user가 지워질 때
+모든 posts를 삭제하기 위해서 규칙을 설정해야 합니다.::
+
+    class Post(Document):
+        title = StringField(max_length=120, required=True)
+        author = ReferenceField(User, reverse_delete_rule=CASCADE)
+        tags = ListField(StringField(max_length=30))
+        comments = ListField(EmbeddedDocumentField(Comment))
+
+더 자세한 정보는 :class:`~mongoengine.fields.ReferenceField`를 확인하세요.
+
+.. note::
+    현재 Map필드와 Dict필드는 삭제된 참조에 대한 제어 방법이 지원되지 않습니다.
 
 The :class:`~mongoengine.fields.ReferenceField` object takes a keyword
 `reverse_delete_rule` for handling deletion rules if the reference is deleted.
