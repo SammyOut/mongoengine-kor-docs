@@ -487,6 +487,22 @@ text post, and "Link: <url>" if it was a link post.
 Searching our posts by tag
 --------------------------
 
+:class:`~mongoengine.Document` class의 :attr:`objects` 속성은
+:class:`~mongoengine.queryset.QuerySet` 객체입니다. 이것은 데이터를 요구할 때마다
+데이터베이스에 게으른 query를 합니다. 또한 필터링을 하여 반환되는 값들을 줄일 수도 있습니다.
+그럼 tag가 "mongodb"인 posts만 반환이 되도록 query를 바로잡아봅시다.::
+
+    for post in Post.objects(tags='mongodb'):
+        print(post.title)
+
+:class:`~mongoengine.queryset.QuerySet`에 있는 메소드들은 반환되는 결과를 다르게 할 수 있습니다.
+예를 들어, :attr:`objects` 속성에 있는 :meth:`first` 메소드는 query에 첫 번째로 매치되는
+하나의 document를 반환합니다. 집합에 관련된 함수 또한 :class:`~mongoengine.queryset.QuerySet`
+객체에서 자주 사용됩니다.::
+
+    num_posts = Post.objects(tags='mongodb').count()
+    print('Found {} posts with tag "mongodb"'.format(num_posts))
+
 The :attr:`objects` attribute of a :class:`~mongoengine.Document` is actually a
 :class:`~mongoengine.queryset.QuerySet` object. This lazily queries the
 database only when you need the data. It may also be filtered to narrow down
