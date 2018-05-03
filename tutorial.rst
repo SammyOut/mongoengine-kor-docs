@@ -400,6 +400,14 @@ Now that we've got our users in the database, let's add a couple of posts::
 Accessing our data
 ==================
 
+데이터베이스에 저장되어 있는 두 개의 posts를 어떻게 보여줄 수 있을까요? 각각의
+document class (i.e. :class:`~mongoengine.Document`를 직접적이든 간접적이든 상속받은 class)는
+해당 class와 연관되어 있는 데이터베이스의 collection 내에 있는 documents에 접근할 때 사용되는
+:attr:`objects` 속성을 가지고 있습니다. 그럼 우리 posts의 제목을 가져와봅시다.::
+
+    for post in Post.objects:
+        print(post.title)
+
 So now we've got a couple of posts in our database, how do we display them?
 Each document class (i.e. any class that inherits either directly or indirectly
 from :class:`~mongoengine.Document`) has an :attr:`objects` attribute, which is
