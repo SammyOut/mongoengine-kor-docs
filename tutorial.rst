@@ -524,6 +524,10 @@ used on :class:`~mongoengine.queryset.QuerySet` objects::
 Learning more about MongoEngine
 -------------------------------
 
+만약 이 튜토리얼을 완료했다면 당신은 매우 훌륭한 출발을 했습니다! 잘하셨습니다!!
+MongoEngine을 배우는 여정의 다음 발자국은 MongoEngine과 MongoDB를 심도 있게 사용하는 법을
+배울 수 있는 `full user guide <guide/index.html>`_ 입니다.
+
 If you got this far you've made a great start, so well done! The next step on
 your MongoEngine journey is the `full user guide <guide/index.html>`_, where
 you can learn in-depth about how to use MongoEngine and MongoDB.
