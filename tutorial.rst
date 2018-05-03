@@ -420,6 +420,36 @@ class. So let's see how we can get our posts' titles::
 Retrieving type-specific information
 ------------------------------------
 
+이것은 posts의 제목을 한 줄에 하나씩 출력할 것입니다. 하지만 만약 TextPost의 특정 종류의 데이터
+(link_url, content, etc.)를 접근하고자 하면 어떻게 해야할까요? 간단하게 :class:`Post`의
+자식클래스의 :attr:`objects` 속성을 이용하는 방법이 있습니다.::
+
+    for post in TextPost.objects:
+        print(post.content)
+
+TextPost의 :attr:`objects` 속성을 사용하면 :class:`TextPost`를 사용하여 생성된 documents들만
+반환됩니다. 여기에는 일반적인 규칙이 있습니다.: :class:`~mongoengine.Document`의 서브클래스의
+:attr:`objects` 속성은 해당 서브클래스 또는 해당 서브클래스의 서브클래스들을 통해 생성된 documents만
+반환합니다.
+
+그러면 특정 타입에 부합하는 posts만을 어떻게 보여줄 수 있을까요? 각각의 서브클래스마다 :attr:`objects`
+속성을 사용하는 것 보다 더 좋은 방법이 있습니다. :class:`Post`에서 :attr:`objects` 속성을 사용하면
+반환되는 값들은 :class:`Post`의 인스턴스가 아니라 :class:`Post`의 서브클래스의 인스턴스입니다.
+실제로 어떻게 작동하는지 아래 코드를 봅시다.::
+
+    for post in Post.objects:
+        print(post.title)
+        print('=' * len(post.title))
+
+        if isinstance(post, TextPost):
+            print(post.content)
+
+        if isinstance(post, LinkPost):
+            print('Link: {}'.format(post.link_url))
+
+위 코드는 각각의 posts 제목을 출력하고 텍스트 post라면 post의 content를 출력하고
+링크 post라면 "Link: <url>"를 출력하게 됩니다.
+
 This will print the titles of our posts, one on each line. But what if we want
 to access the type-specific data (link_url, content, etc.)? One way is simply
 to use the :attr:`objects` attribute of a subclass of :class:`Post`::
