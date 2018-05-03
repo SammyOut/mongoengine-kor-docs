@@ -251,6 +251,27 @@ lists of any type of field (including lists).
 Comments
 ^^^^^^^^
 
+comment는 전형적으로 *한* post 에 연결이 되어 있습니다. 관계형 데이터베이스에서는 post와
+그 post의 comments를 보여주기 위해 데이터베이스에서 post를 검색한 후 해당 post의 댓글을
+다시 query를 했습니다. 관계형 데이터베이스를 사용하지 않는 이상 굳이 comments를 연결되어
+있는 posts와 따로 저장할 이유가 없습니다. MongoDB를 사용하면 comments를 post document에
+*embedded documents*의 리스트로 직접 저장할 수 있습니다. embedded documet는 다른 평범한
+document와 다른 취급을 받지 않습니다. 단지 데이터베이스에서 자신만의 collection을 가지지
+못할 뿐입니다. MngoEngine에서 embedded document의 구조를 평범한 document처럼 utility
+메소드를 사용하여 정의할 수 있습니다.::
+
+    class Comment(EmbeddedDocument):
+        content = StringField()
+        name = StringField(max_length=120)
+
+post document에서 comment documents의 리스트를 저장할 수 있습니다.::
+
+    class Post(Document):
+        title = StringField(max_length=120, required=True)
+        author = ReferenceField(User)
+        tags = ListField(StringField(max_length=30))
+        comments = ListField(EmbeddedDocumentField(Comment))
+
 A comment is typically associated with *one* post. In a relational database, to
 display a post with its comments, we would have to retrieve the post from the
 database and then query the database again for the comments associated with the
