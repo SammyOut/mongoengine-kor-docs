@@ -33,7 +33,7 @@ MongoEngine을 사용하기 전에  :func:`~mongoengine.connect` 함수를 사�
 
     connect('tumblelog')
 
-MongoDB를 연결할 때 수많은 옵션들을 사용할 수 있습니다.
+MongoDB를 연결할 때 수많은 옵션을 사용할 수 있습니다.
 더 자세한 정보는 :ref:`guide-connecting`가이드를 확인하세요.
 
 Before we start, make sure that a copy of MongoDB is running in an accessible
@@ -58,14 +58,14 @@ them see the :ref:`guide-connecting` guide.
 Defining our documents
 ======================
 
-MongoDB는 스키마를 정의할 필요가 없는 *스키마리스* 데이터베이스 입니다. ---
-필드를 추가 하거나 지워도 에러가 발생하지 않습니다. 이는 데이터 모델 변경 등등 많은 것들을 편하게 해주지만
+MongoDB는 스키마를 정의할 필요가 없는 *스키마리스* 데이터베이스입니다. ---
+필드를 추가하거나 지워도 에러가 발생하지 않습니다. 이는 데이터 모델 변경 등등 많은 것들을 편하게 해주지만
 도큐먼트의 스키마를 정의하는 것은 잘못된 타입 또는 빠진 필드 등의 버그를 잡는 데에 도움을 줍니다.
 그리고 :abbr:`ORMs (Object-Relational Mappers)`처럼 유틸리티 메소드를 정의할 수 있습니다.
 
 Tumblelog 어플리케이션에서는 다양한 타입의 정보들을 저장해야 합니다.
 먼저 post들을 각각의 유저마다 연결하기 위해 **users** 컬렉션이 필요합니다.
-또한 다양한 종류의 **posts**(예: 텍스트, 이미지, 링크)를 데이터베이스에 저장해야 합니다.
+또한, 다양한 종류의 **posts**(예: 텍스트, 이미지, 링크)를 데이터베이스에 저장해야 합니다.
 Tumblelog에서 post마다 **Tags**를 달면 특정 tag를 검색했을 때 글을 찾기 쉽게 해줍니다.
 마지막으로 **comments**를 추가하면 멋진 Tumblelog가 만들어집니다.
 다른 많은 도큐먼트들과 연결되어 있는 **users**를 먼저 정의해봅시다.
@@ -100,8 +100,8 @@ Users
         last_name = StringField(max_length=50)
 
 위 코드는 일반적인 ORM에서 table의 구조를 정의하는 것과 비슷해 보입니다.
-하지만 가장 중요한 차이점은 스키마가 MongoDB에 전달되거나 정의되지 않는 다는 것입니다. ---
-이 것은 추후 수정 사항을 쉽게 관리하기 위해 어플리케이션 레벨에서 적용이 됩니다.
+하지만 가장 중요한 차이점은 스키마가 MongoDB에 전달되거나 정의되지 않는다는 것입니다. ---
+이것은 추후 수정 사항을 쉽게 관리하기 위해 어플리케이션 레벨에서 적용이 됩니다.
 User 도큐먼트는 MongoDB의 table이 아닌 *collection*에 저장이 될 것입니다.
 
 Just as if we were using a relational database with an ORM, we need to define
@@ -125,8 +125,8 @@ Posts, Comments and Tags
 아마 **posts** table과 **comments** table 그리고 **tags** table을 만들었을 것입니다.
 그리고 comments와 각각의 posts를 연결하기 위해 comments table의 속성에 posts table의
 foreign key를 넣었을 것입니다. 그리고 post table과 tag table을 연결하기 위해 many-to-many
-relationship을 제공했을 것입니다. 그 다음에 각각의 데이터 타입들(텍스트, 이미지, 링크)을 저장하는
-문제를 해결해야 합니다. 이 문제를 해결하는 데에는 다양한 방법이 있지만 각각의 방법마다 단점이 있어서
+relationship을 제공했을 것입니다. 그다음에 각각의 데이터 타입들(텍스트, 이미지, 링크)을 저장하는
+문제를 해결해야 합니다. 이 문제를 해결하는 데에는 다양한 방법이 있지만, 각각의 방법마다 단점이 있어서
 완벽한 해결책은 없습니다.
 
 Now we'll think about how to store the rest of the information. If we were
@@ -145,9 +145,9 @@ Posts
 행복하게도 MongoDB는 관계형 데이터베이스가 *아니기* 때문에 위에 말했던 방법을 사용하지 않습니다.
 MongoDB의 schemaless 환경이 더 멋진 해결책을 제공해주기 때문입니다.
 우리는 모든 종류의 posts를 *한 collection*에 저장하고 각각의 종류의 posts를 위한 필드를 정의합니다.
-만약에 나중에 비디오 posts를 추가하고싶더라도 collection의 전체 내용을 수정할 필요가 없습니다.
+만약에 나중에 비디오 posts를 추가하고 싶더라도 collection의 전체 내용을 수정할 필요가 없습니다.
 단지 비디오 posts를 지원할 새로운 필드를 만들기만 하면 됩니다.
-이것은 객체지향의 상속의 원칙에 멋지게 알맞습니다. 우리는 :class:`Post`를 부모 클래스.
+이것은 객체지향의 상속 원칙에 멋지게 알맞습니다. 우리는 :class:`Post`를 부모 클래스.
 :class:`TextPost`, :class:`ImagePost` 그리고 :class:`LinkPost`를 :class:`Post`의
 자식 클래스로 생각하면 됩니다. 사실 MongoEngine은 이 것을 창조적은 모델링의 한 종류로 지원합니다. ---
 상속이 가능하게 설정하기 위해서는 :attr:`meta` 안에 있는 :attr:`allow_inheritance`를 True로
@@ -168,7 +168,7 @@ MongoDB의 schemaless 환경이 더 멋진 해결책을 제공해주기 때문�
     class LinkPost(Post):
         link_url = StringField()
 
-:class:`~mongoengine.fields.ReferenceField`를 이용하여 게시글의 작성자의 Reference를 저장했습니다.
+:class:`~mongoengine.fields.ReferenceField`를 이용하여 게시글 작성자의 Reference를 저장했습니다.
 이는 전통적인 ORM의 foreign key 필드와 비슷합니다. 그리고 데이터를 저장할 때 자동으로 참조가 되고
 데이터를 불러올 때 역참조가 됩니다.
 
@@ -211,7 +211,7 @@ Tags
 MongoDB는 자체적으로 아이템들의 리스트를 저장할 수 있습니다. 각각 포스트의 태그들의
 리스트를 Post 모델에 저장할 수 있습니다. 효율성과 간편성을 위해서 태그들을 collection에 reference로
 분할하여 저장하지 않고 post에 string으로 저장하겠습니다. 특별히 tags는 매우 짧기 때문에(주로
-도큐먼트의 id보다도 짧습니다.) 제한을 하지 않아도데이터베이스의 크기에 크게 영향을 주지 않습니다.
+도큐먼트의 id보다도 짧습니다.) 제한하지 않아도 데이터베이스의 크기에 크게 영향을 주지 않습니다.
 수정된 :class:`Post` 클래스를 확인해봅시다.::
 
     class Post(Document):
@@ -219,12 +219,12 @@ MongoDB는 자체적으로 아이템들의 리스트를 저장할 수 있습니�
         author = ReferenceField(User)
         tags = ListField(StringField(max_length=30))
 
-Post의 tags를 저장하기 위해 사용한 :class:`~mongoengine.fields.ListField` 객체는 첫번째
+Post의 tags를 저장하기 위해 사용한 :class:`~mongoengine.fields.ListField` 객체는 첫 번째
 인자로 필드 객체를 받습니다. --- 이것은 어떤 종류의 필드의 리스트도 저장할 수 있다는 것입니다.
 (리스트를 포함해서 말입니다.)
 
 .. note::
-    :class:`Post`를 상속 받았기 때문에 각각의 post 종류마다 다 수정해줄 필요가 없습니다.
+    :class:`Post`를 상속받았기 때문에 각각의 post 종류마다 다 수정해줄 필요가 없습니다.
 
 Now that we have our Post models figured out, how will we attach tags to them?
 MongoDB allows us to store lists of items natively, so rather than having a
@@ -251,7 +251,7 @@ lists of any type of field (including lists).
 Comments
 ^^^^^^^^
 
-comment는 전형적으로 *한* post 에 연결이 되어 있습니다. 관계형 데이터베이스에서는 post와
+comment는 전형적으로 *한* post에 연결이 되어 있습니다. 관계형 데이터베이스에서는 post와
 그 post의 comments를 보여주기 위해 데이터베이스에서 post를 검색한 후 해당 post의 댓글을
 다시 query를 했습니다. 관계형 데이터베이스를 사용하지 않는 이상 굳이 comments를 연결되어
 있는 posts와 따로 저장할 이유가 없습니다. MongoDB를 사용하면 comments를 post document에
@@ -400,9 +400,9 @@ Now that we've got our users in the database, let's add a couple of posts::
 Accessing our data
 ==================
 
-데이터베이스에 저장되어 있는 두 개의 posts를 어떻게 보여줄 수 있을까요? 각각의
+데이터베이스에 저장된 두 개의 posts를 어떻게 보여줄 수 있을까요? 각각의
 document class (i.e. :class:`~mongoengine.Document`를 직접적이든 간접적이든 상속받은 class)는
-해당 class와 연관되어 있는 데이터베이스의 collection 내에 있는 documents에 접근할 때 사용되는
+해당 class와 연관된 데이터베이스의 collection 내에 있는 documents에 접근할 때 사용되는
 :attr:`objects` 속성을 가지고 있습니다. 그럼 우리 posts의 제목을 가져와봅시다.::
 
     for post in Post.objects:
@@ -421,20 +421,20 @@ Retrieving type-specific information
 ------------------------------------
 
 이것은 posts의 제목을 한 줄에 하나씩 출력할 것입니다. 하지만 만약 TextPost의 특정 종류의 데이터
-(link_url, content, etc.)를 접근하고자 하면 어떻게 해야할까요? 간단하게 :class:`Post`의
-자식클래스의 :attr:`objects` 속성을 이용하는 방법이 있습니다.::
+(link_url, content, etc.)를 접근하고자 하면 어떻게 해야 할까요? 간단하게 :class:`Post`의
+자식 클래스의 :attr:`objects` 속성을 이용하는 방법이 있습니다.::
 
     for post in TextPost.objects:
         print(post.content)
 
 TextPost의 :attr:`objects` 속성을 사용하면 :class:`TextPost`를 사용하여 생성된 documents들만
-반환됩니다. 여기에는 일반적인 규칙이 있습니다.: :class:`~mongoengine.Document`의 서브클래스의
-:attr:`objects` 속성은 해당 서브클래스 또는 해당 서브클래스의 서브클래스들을 통해 생성된 documents만
+반환됩니다. 여기에는 일반적인 규칙이 있습니다.: :class:`~mongoengine.Document`의 서브 클래스의
+:attr:`objects` 속성은 해당 서브 클래스 또는 해당 서브 클래스의 서브 클래스들을 통해 생성된 documents만
 반환합니다.
 
-그러면 특정 타입에 부합하는 posts만을 어떻게 보여줄 수 있을까요? 각각의 서브클래스마다 :attr:`objects`
-속성을 사용하는 것 보다 더 좋은 방법이 있습니다. :class:`Post`에서 :attr:`objects` 속성을 사용하면
-반환되는 값들은 :class:`Post`의 인스턴스가 아니라 :class:`Post`의 서브클래스의 인스턴스입니다.
+그러면 특정 타입에 부합하는 posts만을 어떻게 보여줄 수 있을까요? 각각의 서브 클래스마다 :attr:`objects`
+속성을 사용하는 것보다 더 좋은 방법이 있습니다. :class:`Post`에서 :attr:`objects` 속성을 사용하면
+반환되는 값들은 :class:`Post`의 인스턴스가 아니라 :class:`Post`의 서브 클래스의 인스턴스입니다.
 실제로 어떻게 작동하는지 아래 코드를 봅시다.::
 
     for post in Post.objects:
@@ -489,7 +489,7 @@ Searching our posts by tag
 
 :class:`~mongoengine.Document` class의 :attr:`objects` 속성은
 :class:`~mongoengine.queryset.QuerySet` 객체입니다. 이것은 데이터를 요구할 때마다
-데이터베이스에 게으른 query를 합니다. 또한 필터링을 하여 반환되는 값들을 줄일 수도 있습니다.
+데이터베이스에 게으른 query를 합니다. 또한, 필터링하여 반환되는 값들을 줄일 수도 있습니다.
 그럼 tag가 "mongodb"인 posts만 반환이 되도록 query를 바로잡아봅시다.::
 
     for post in Post.objects(tags='mongodb'):
