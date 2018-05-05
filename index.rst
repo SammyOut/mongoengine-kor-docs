@@ -28,37 +28,12 @@ MongoEngine User Documentation
 **MongoEngine** is an Object-Document Mapper, written in Python for working with
 MongoDB. To install it, simply run
 
-.. code-block:: console
-
-    $ pip install -U mongoengine
-
-:doc:`tutorial`
-  A quick tutorial building a tumblelog to get you up and running with
-  MongoEngine.
-
-:doc:`guide/index`
-  The Full guide to MongoEngine --- from modeling documents to storing files,
-  from querying for data to firing signals and *everything* between.
-
-:doc:`apireference`
-  The complete API documentation --- the innards of documents, querysets and fields.
-
-:doc:`upgrade`
-  How to upgrade MongoEngine.
-
-:doc:`django`
-  Using MongoEngine and Django
-
 Community
 ---------
 
 MongoEngine을 사용하는 데에 있어 도움이 필요하다면 `MongoEngine 사용자 google 그룹스
 <http://groups.google.com/group/mongoengine-users>`_ 를 이용하거나
 `stackoverflow <http://www.stackoverflow.com>`_ 를 이용하세요.
-
-To get help with using MongoEngine, use the `MongoEngine Users mailing list
-<http://groups.google.com/group/mongoengine-users>`_ or the ever popular
-`stackoverflow <http://www.stackoverflow.com>`_.
 
 Contributing
 ------------
@@ -71,16 +46,6 @@ MongoEngine의 소스는 `GitHub <http://github.com/MongoEngine/mongoengine>`_ �
 컨트리뷰션은 `GitHub <http://github.com/MongoEngine/mongoengine>`_ 에서 포크를 한 다음
 풀 리퀘스트를 보내주세요.
 
-**Yes please!**  We are always looking for contributions, additions and improvements.
-
-The source is available on `GitHub <http://github.com/MongoEngine/mongoengine>`_
-and contributions are always encouraged. Contributions can be as simple as
-minor tweaks to this documentation, the website or the core.
-
-To contribute, fork the project on
-`GitHub <http://github.com/MongoEngine/mongoengine>`_ and send a
-pull request.
-
 Changes
 -------
 
@@ -89,24 +54,12 @@ MongoEngine에 대한 모든 변경 사항들은 :doc:`changelog`에서, 모든 
 
 .. note:: 항상 `upgrade <upgrade>`_ 문서를 읽고 실제 배포 되기 전에 읽고 테스트 해주세요! **;)**
 
-
-See the :doc:`changelog` for a full list of changes to MongoEngine and
-:doc:`upgrade` for upgrade information.
-
-.. note::  Always read and test the `upgrade <upgrade>`_ documentation before
-    putting updates live in production **;)**
-
 Offline Reading
 ---------------
 
 `pdf <https://media.readthedocs.org/pdf/mongoengine-odm/latest/mongoengine-odm.pdf>`_ 또는
 `epub <https://media.readthedocs.org/epub/mongoengine-odm/latest/mongoengine-odm.epub>`_ 에서
 오프라인에서 이 문서를 다운로드할 수 있습니다.
-
-Download the docs in `pdf <https://media.readthedocs.org/pdf/mongoengine-odm/latest/mongoengine-odm.pdf>`_
-or `epub <https://media.readthedocs.org/epub/mongoengine-odm/latest/mongoengine-odm.epub>`_
-formats for offline reading.
-
 
 .. toctree::
     :maxdepth: 1
