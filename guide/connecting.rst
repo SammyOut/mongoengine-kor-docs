@@ -4,6 +4,43 @@
 Connecting to MongoDB
 =====================
 
+실행되고 있는 :program:`mongod`의 인스턴스에 연결하기 위해서는
+:func:`~mongoengine.connect` 함수를 사용해야 합니다. 이 함수의 첫 번째 인자는
+연결할 데이터베이스의 이름입니다.::
+
+    from mongoengine import connect
+    connect('project1')
+
+기본적으로 MongoEngine은 :program:`mongod`의 인스턴스가 **localhost**에서
+**27017** 포트에서 실행이 되고있다고 추측합니다. 만약 MongoDB가 다른 곳에서
+실행이 되고 있다면 :func:`~mongoengine.connect`:: 함수의 인자로 :attr:`host`와
+:attr:`port`를 넘겨주어야 합니다.::
+
+    connect('project1', host='192.168.1.35', port=12345)
+
+만약 데이터베이스가 인증을 필요로한다면 :func:`~mongoengine.connect`:: 함수의 인자로
+:attr:`username`과 :attr:`password`를 넘겨주어야 합니다.::
+
+    connect('project1', username='webapp', password='pwd123')
+
+URI 형식의 연결 또한 지원합니다. -- 단지 :func:`~mongoengine.connect`:: 함수의
+:attr:`host` 인자에 URI를 넘겨주면 됩니다.::
+
+    connect('project1', host='mongodb://localhost/database_name')
+
+.. note:: URI 스트링에 있는 데이터베이스, 유저네임 그리고 패스워드는
+    :func:`~mongoengine.connect`:의 인자들을 덮어씁니다.::
+
+        connect(
+            db='test',
+            username='user',
+            password='12345',
+            host='mongodb://admin:qwerty@localhost/production'
+        )
+
+    위 코드는 ``admin``이라는 유저네임과 ``qwerty`` 패스워드로 ``production``
+    데이터베이스에 접속하게 됩니다.
+
 To connect to a running instance of :program:`mongod`, use the
 :func:`~mongoengine.connect` function. The first argument is the name of the
 database to connect to::
